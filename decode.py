@@ -54,7 +54,6 @@ def main():
 def parseArguments(args):
 
 	if args.AISonly == True:
-		print("YES")
 		if os.path.isfile(args.AISFilePath) == False:
 			return False
 	elif args.CAT10only == True:
@@ -146,7 +145,7 @@ def formatTime(time):
 	seconds = int(time) / 128 #seconds
 	minutes = seconds / 60
 	hours = minutes / 60
-	timeList = [math.floor(hours), math.floor(minutes%60),seconds % 60]
+	timeList = [math.floor(hours), math.floor(minutes%60),seconds % 60] #Floor not required for seconds,as milliseconds are also required.
 	timeStr = ':'.join(str(x) for x in timeList)
 	return(timeStr)
 
