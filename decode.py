@@ -91,10 +91,12 @@ def Cat10Decode(path):
 	fCat10Decoded = open('Cat10Decoded.txt',"w", newline='')
 	
 	error = subprocess.call(['asterix.exe','-P','-l' '-v','-f',path],stdout = fCat10Decoded)
+	print("Asterix program loaded")
 	if error != 0:
 		print("Error detected when loading asterix.exe. Program halted.")
 		return 1
 	fCat10Decoded.close()
+	print("Asterix decoded. File being converted to CSV")
 	
 	fCat10Decoded = open('Cat10Decoded.txt',"r", newline='')
 	fCat10CSV = open('Cat10Decoded.csv',"w", newline='')
