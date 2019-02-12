@@ -90,8 +90,7 @@ def Cat10Decode(path):
 	print("Cat10 Decoding started...")
 	fCat10Decoded = open('Cat10Decoded.txt',"w", newline='')
 	
-	error = subprocess.call(['asterix.exe','-P','-l' '-v','-f',path],stdout = fCat10Decoded)
-	print("Asterix program loaded")
+	error = subprocess.call(['asterix.exe','-P','-l','-f',path],stdout = fCat10Decoded)
 	if error != 0:
 		print("Error detected when loading asterix.exe. Program halted.")
 		return 1
