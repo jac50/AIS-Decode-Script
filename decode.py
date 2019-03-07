@@ -44,6 +44,7 @@ def main():
 		Cat10Decode(paths[1])
 	elif args.AISonly == True:
 		AISDecode(paths[0])
+		
 	else:
 		AISDecode(paths[0])
 		Cat10Decode(paths[1])
@@ -78,9 +79,11 @@ def AISDecode(path):
 	
 	AISWriter.writerow(["MMSI","Latitude","Longitude","COG","SOG", "Time"])
 	for row in AISReader:
-		message = row[0]		
+		message = row[0]
 		decodedMsg = simpleais.parse(message)
 		if decodedMsg is None:
+			continue
+		if isinstance(decodedMsg,simpleais.SentenceFragment) == True:
 			continue
 		AISWriter.writerow([decodedMsg['mmsi'],decodedMsg['lat'], decodedMsg['lon'], decodedMsg['course'], decodedMsg['speed'], row[1]])
 	
