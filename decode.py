@@ -54,6 +54,10 @@ def main():
 	
 def parseArguments(args):
 
+	
+	if args.AISFilePath.split('.')[1].lower() == "pcapng":
+		args.AISFilePath = convertPCAP(args.AISFilePath)
+		
 	if args.AISonly == True:
 		if os.path.isfile(args.AISFilePath) == False:
 			return False
@@ -69,7 +73,12 @@ def parseArguments(args):
 def cleanFiles():
 	print("Clean up directory..")
 	os.remove("Cat10Decoded.txt")	
-
+	
+def convertPCAP(path):
+	newPath = path.split('.')[0] + ".pcap"
+	error = subprocess.call(['C:\Program Files\Wireshark\editcap',path,newPath])
+	return newPath
+	
 def AISDecode(path):
 	print("AIS Decoding Started..")
 	fInput = open(path, "r", newline='')
