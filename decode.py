@@ -41,7 +41,7 @@ def main():
 
 	
 	if args.CAT10only == True:
-		Cat10Decode(paths[1])
+		Cat10Decode(paths[0])
 	elif args.AISonly == True:
 		AISDecode(paths[0])
 		
@@ -58,7 +58,7 @@ def parseArguments(args):
 		if os.path.isfile(args.AISFilePath) == False:
 			return False
 	elif args.CAT10only == True:
-		if os.path.isfile(args.Cat10FilePath) == False:
+		if os.path.isfile(args.AISFilePath) == False: #Botched for now.. Will change to File1 and File2. 
 			return False
 	else:
 		if os.path.isfile(args.AISFilePath) == False or (os.path.isfile(args.Cat10FilePath) == False):
@@ -104,7 +104,7 @@ def Cat10Decode(path):
 	fCat10CSV = open('Cat10Decoded.csv',"w", newline='')
 	csvWriter = csv.writer(fCat10CSV)
 	flag = 0
-	csvWriter.writerow(["Time","Latitude","Longitude","SOG (NM/s)", "COG", "Track Number"])
+	csvWriter.writerow(["Time","Latitude","Longitude","SOG (NM/s)", "COG", "Track Number","Confirmed Track"])
 	row = []
 	for line in fCat10Decoded:
 	
@@ -131,6 +131,9 @@ def Cat10Decode(path):
 			continue
 		elif lineList[0] == "Asterix.CAT010.161.TrkNb":
 			row.append(lineList[1].rstrip())
+			continue
+		elif lineList[0] == "Asterix.CAT010.170.CNF":
+			row.append(lineList[1])
 			flag = 1
 			continue
 		
